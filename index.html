@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<button id="appleLogin">Mit Apple anmelden</button>
+<button id="microsoftLogin">Mit Microsoft anmelden</button>
+
+<br><br>
+
+<input id="email" type="email" placeholder="E-Mail">
+<input id="password" type="password" placeholder="Passwort">
+<button id="emailLogin">Login</button>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "DEIN_API_KEY",
+    authDomain: "DEIN_PROJEKT.firebaseapp.com",
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Apple Login
+  document.getElementById("appleLogin").onclick = () => {
+    const provider = new firebase.auth.OAuthProvider('apple.com');
+    auth.signInWithPopup(provider).then(() => {
+      window.location.href = "https://sites.google.com/view/deineseite/home";
+    });
+  };
+
+  // Microsoft Login
+  document.getElementById("microsoftLogin").onclick = () => {
+    const provider = new firebase.auth.OAuthProvider('microsoft.com');
+    auth.signInWithPopup(provider).then(() => {
+      window.location.href = "https://sites.google.com/view/deineseite/home";
+    });
+  };
+
+  // Email + Passwort Login
+  document.getElementById("emailLogin").onclick = () => {
+    const email = document.getElementById("email").value;
+    const pw = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, pw).then(() => {
+      window.location.href = "https://sites.google.com/view/deineseite/home";
+    });
+  };
+</script>
+
+</body>
+</html>
