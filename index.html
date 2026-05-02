@@ -44,10 +44,13 @@
 <!-- Microsoft -->
 <button id="microsoftLogin">Mit Microsoft anmelden</button><br>
 
-<!-- Email -->
+<!-- Email Login -->
 <input id="email" type="email" placeholder="E-Mail"><br>
 <input id="password" type="password" placeholder="Passwort"><br>
 <button id="emailLogin">Login mit E-Mail</button>
+
+<!-- Registrierung -->
+<button id="registerBtn" style="background:#28a745;">Registrieren</button>
 
 <script>
   // Deine Firebase Config
@@ -83,13 +86,26 @@
       .catch(err => alert(err.message));
   };
 
-  // Email + Passwort Login
+  // Email Login
   document.getElementById("emailLogin").onclick = () => {
     const email = document.getElementById("email").value;
     const pw = document.getElementById("password").value;
 
     auth.signInWithEmailAndPassword(email, pw)
       .then(() => window.location.href = redirectURL)
+      .catch(err => alert(err.message));
+  };
+
+  // Registrierung
+  document.getElementById("registerBtn").onclick = () => {
+    const email = document.getElementById("email").value;
+    const pw = document.getElementById("password").value;
+
+    auth.createUserWithEmailAndPassword(email, pw)
+      .then(() => {
+        alert("Registrierung erfolgreich!");
+        window.location.href = redirectURL;
+      })
       .catch(err => alert(err.message));
   };
 </script>
